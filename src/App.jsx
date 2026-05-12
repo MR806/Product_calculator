@@ -16,8 +16,15 @@ function App() {
     saveBudget, 
     history, 
     deleteBudget,
-    resetForm 
+    resetForm,
+    loadBudget
   } = useCalculadora();
+
+  const handleEditBudget = (budget) => {
+    loadBudget(budget);
+    setCurrentView('calculator');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-900 bg-gray-50 selection:bg-blue-200">
@@ -55,6 +62,7 @@ function App() {
             <HistoryView 
               history={history} 
               deleteBudget={deleteBudget} 
+              onEdit={handleEditBudget}
             />
           </div>
         )}

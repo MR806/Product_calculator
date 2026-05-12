@@ -57,6 +57,18 @@ export function useCalculadora() {
     });
   };
 
+  const loadBudget = (budget) => {
+    setFormData({
+      name: budget.name,
+      weight: budget.weight,
+      time: budget.time,
+      packaging: budget.packaging,
+      energyTariff: budget.energyTariff,
+      margin: budget.margin,
+      precoConcorrente: budget.precoConcorrente || '',
+    });
+  };
+
   const saveBudget = () => {
     if (!formData.name) return;
     
@@ -81,6 +93,7 @@ export function useCalculadora() {
     saveBudget,
     history,
     deleteBudget,
-    resetForm
+    resetForm,
+    loadBudget
   };
 }

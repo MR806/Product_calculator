@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Trash2, TrendingUp, Cpu, ChevronDown, ChevronUp, Package, Percent, Target } from 'lucide-react';
+import { Trash2, TrendingUp, Cpu, ChevronDown, ChevronUp, Package, Percent, Target, Edit3 } from 'lucide-react';
 
-export default function HistoryView({ history, deleteBudget }) {
+export default function HistoryView({ history, deleteBudget, onEdit }) {
   const [expandedId, setExpandedId] = useState(null);
 
   const formatMZN = (value) => 
@@ -9,6 +9,11 @@ export default function HistoryView({ history, deleteBudget }) {
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
+  };
+
+  const handleEdit = (e, budget) => {
+    e.stopPropagation();
+    onEdit(budget);
   };
 
   const obterAnaliseConcorrencia = (budget) => {
@@ -78,6 +83,13 @@ export default function HistoryView({ history, deleteBudget }) {
             >
               <div className="p-6 relative">
                 <div className="absolute top-4 right-4 flex items-center space-x-1">
+                  <button 
+                    onClick={(e) => handleEdit(e, budget)}
+                    className="text-gray-400 hover:text-blue-500 transition-colors p-2 hover:bg-blue-50 rounded-full"
+                    title="Editar Orçamento"
+                  >
+                    <Edit3 className="h-4 w-4" />
+                  </button>
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
