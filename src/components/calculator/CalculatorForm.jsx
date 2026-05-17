@@ -211,15 +211,15 @@ export default function CalculatorForm({ formData, handleChange, handlePhotoChan
               type="range"
               name="margin"
               min="0"
-              max="500"
+              max="1000"
               value={formData.margin}
               onChange={handleChange}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
             />
             <div className="flex justify-between text-xs text-gray-400 mt-1">
               <span>0%</span>
-              <span>100%</span>
               <span>500%</span>
+              <span>1000%</span>
             </div>
           </div>
         </div>
