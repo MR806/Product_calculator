@@ -12,6 +12,7 @@ export function useCalculadora() {
     energyTariff: 10,
     margin: 100,
     precoConcorrente: '',
+    photo: '',
   });
 
   const [history, setHistory] = useState(() => {
@@ -28,6 +29,13 @@ export function useCalculadora() {
     setFormData((prev) => ({
       ...prev,
       [name]: type === 'number' || type === 'range' ? Number(value) : value,
+    }));
+  };
+
+  const handlePhotoChange = (photoBase64) => {
+    setFormData((prev) => ({
+      ...prev,
+      photo: photoBase64,
     }));
   };
 
@@ -54,6 +62,7 @@ export function useCalculadora() {
       energyTariff: 10,
       margin: 100,
       precoConcorrente: '',
+      photo: '',
     });
   };
 
@@ -66,6 +75,7 @@ export function useCalculadora() {
       energyTariff: budget.energyTariff,
       margin: budget.margin,
       precoConcorrente: budget.precoConcorrente || '',
+      photo: budget.photo || '',
     });
   };
 
@@ -94,6 +104,7 @@ export function useCalculadora() {
     history,
     deleteBudget,
     resetForm,
-    loadBudget
+    loadBudget,
+    handlePhotoChange
   };
 }

@@ -105,14 +105,25 @@ export default function HistoryView({ history, deleteBudget, onEdit }) {
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-gray-900 pr-16 truncate">{budget.name}</h3>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {new Date(budget.date).toLocaleDateString('pt-MZ', {
-                      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                    })}
-                  </p>
+                <div className="mb-4 flex items-start">
+                  {budget.photo && (
+                    <img src={budget.photo} alt={budget.name} className="h-12 w-12 rounded-lg object-cover mr-3 border border-gray-200 flex-shrink-0" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-gray-900 pr-16 truncate">{budget.name}</h3>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {new Date(budget.date).toLocaleDateString('pt-MZ', {
+                        day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                      })}
+                    </p>
+                  </div>
                 </div>
+
+                {isExpanded && budget.photo && (
+                  <div className="mb-6 animate-in fade-in duration-300">
+                    <img src={budget.photo} alt={budget.name} className="w-full h-48 object-cover rounded-xl border border-gray-100" />
+                  </div>
+                )}
 
                 <div className="space-y-2 mb-6">
                   <div className="flex justify-between text-sm text-gray-600">

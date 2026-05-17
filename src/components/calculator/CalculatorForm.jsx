@@ -1,7 +1,37 @@
-import React from 'react';
-import { Box, Clock, Zap, Target, Package } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Box, Clock, Zap, Target, Package, Image as ImageIcon, UploadCloud, X } from 'lucide-react';
 
-export default function CalculatorForm({ formData, handleChange }) {
+export default function CalculatorForm({ formData, handleChange, handlePhotoChange }) {
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Optional: Check file size if needed, e.g., if (file.size > 5 * 1024 * 1024) return alert('File too large');
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (handlePhotoChange) {
+          handlePhotoChange(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const removePhoto = () => {
+    if (handlePhotoChange) {
+      handlePhotoChange('');
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
   return (
     <div className="space-y-8 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
       
@@ -57,6 +87,55 @@ export default function CalculatorForm({ formData, handleChange }) {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <hr className="border-gray-100" />
+
+      {/* Imagem do Produto Section */}
+      <section>
+        <div className="flex items-center mb-4">
+          <ImageIcon className="h-5 w-5 text-blue-600 mr-2" />
+          <h2 className="text-lg font-semibold text-gray-800">Imagem do Produto (Opcional)</h2>
+        </div>
+        
+        <div className="space-y-4">
+          <input 
+            type="file" 
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            className="hidden"
+          />
+          
+          {formData.photo ? (
+            <div className="relative inline-block border border-gray-200 rounded-xl overflow-hidden group">
+              <img 
+                src={formData.photo} 
+                alt="Preview" 
+                className="h-40 w-auto object-cover max-w-full"
+              />
+              <button
+                type="button"
+                onClick={removePhoto}
+                className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-red-600"
+                title="Remover foto"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            <div 
+              onClick={triggerFileInput}
+              className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center justify-center space-y-2"
+            >
+              <div className="bg-blue-100 p-3 rounded-full text-blue-600">
+                <UploadCloud className="h-6 w-6" />
+              </div>
+              <div className="text-sm font-medium text-gray-700">Clique para adicionar uma foto</div>
+              <div className="text-xs text-gray-400">PNG, JPG ou WEBP (máx. 5MB)</div>
+            </div>
+          )}
         </div>
       </section>
 

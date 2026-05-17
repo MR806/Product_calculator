@@ -17,7 +17,8 @@ function App() {
     history, 
     deleteBudget,
     resetForm,
-    loadBudget
+    loadBudget,
+    handlePhotoChange
   } = useCalculadora();
 
   const handleEditBudget = (budget) => {
@@ -42,7 +43,8 @@ function App() {
               <div className="lg:col-span-2">
                 <CalculatorForm 
                   formData={formData} 
-                  handleChange={handleChange} 
+                  handleChange={handleChange}
+                  handlePhotoChange={handlePhotoChange}
                 />
               </div>
               <div className="lg:col-span-1">
